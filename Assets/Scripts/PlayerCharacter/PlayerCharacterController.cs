@@ -9,9 +9,16 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField] CharacterController characterController;
     [SerializeField] float speed;
 
-    PlayerInputActions.PlayerMovementBaseActions playerMovementInput;
+    [Header("InputActions")]
+    [SerializeField] InputActionReference movementReference;
+    [SerializeField] InputActionReference lookDirectionRefernce;
 
+    InputAction movementAction;
+    InputAction lookDirectionAction;
 
+    Vector2 movementValue => movementAction.ReadValue<Vector2>();
+
+    Vector2 lookDirectionValue => lookDirectionAction.ReadValue<Vector2>();
     //
     //[Header("Movement Settings")]
     //[SerializeField] private float velocity = 5;
@@ -25,8 +32,9 @@ public class PlayerCharacterController : MonoBehaviour
     //
     private void Awake()
     {
-
-        playerMovementInput = GetComponent<PlayerInputController>().Input.PlayerMovementBase;
+        var playerInput = GetComponent<PlayerInput>();
+        movementAction = playerInput.actions[movementReference.action.name];
+        lookDirectionAction = playerInput.actions[lookDirectionRefernce.action.name];
         //  characterController = GetComponent<CharacterController>();
     }
 
@@ -34,52 +42,51 @@ public class PlayerCharacterController : MonoBehaviour
     {
         //  var input = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         var camera = Camera.main;
-        var moveInput = playerMovementInput.MoveDirection.ReadValue<Vector2>();
-        var input = new Vector3(moveInput.x, moveInput.y, 0f);
+        var input = new Vector3(movementValue.x, movementValue.y, 0f);
         input = camera.transform.TransformDirection(input);
 
 
         //characterController.Move(input * speed * Time.deltaTime);
 
         characterController.SimpleMove(input * speed);
-        var lookDirection = playerMovementInput.LookDirection.ReadValue<Vector2>();
-        if (lookDirection != Vector2.zero)
-            transform.forward = new Vector3(lookDirection.x, 0f, lookDirection.y);
+        if (lookDirectionValue != Vector2.zero)
+            transform.forward = new Vector3(lookDirectionValue.x, 0f, lookDirectionValue.y);
 
-
-
-
-
-
-
-
-
-
-        //    var ray = camera.ScreenPointToRay(Input.mousePosition);
-        //     var plane = new Plane(transform.up, transform.position);
-
-        //     float distance;
-        //    if(plane.Raycast(ray, out distance)) 
-        //     {
-        //         Vector3 hitPoint = ray.GetPoint(distance);
-        //         transform.forward = hitPoint - transform.position;
-
-        //      }
-
-
-        //   var movementValue = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        //
-        //   movementValue *= velocity;
-        //   movementValue *= Time.deltaTime;
-        //
-        //   characterController.Move(new Vector3(movementValue.x, yMovement * Time.deltaTime, movementValue.y));
-        //   if (characterController.velocity.sqrMagnitude > 0.1)
-        //       transform.forward = new Vector3(movementValue.x, 0f, movementValue.y);
-        //
-        //   if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
-        //       yMovement = 10f;
-        //
-        //   yMovement = Mathf.Max(-9.81f, yMovement - Time.deltaTime * fallJumpModif);
     }
+
+
+
+
+
+
+
+
+
+    //    var ray = camera.ScreenPointToRay(Input.mousePosition);
+    //     var plane = new Plane(transform.up, transform.position);
+
+    //     float distance;
+    //    if(plane.Raycast(ray, out distance)) 
+    //     {
+    //         Vector3 hitPoint = ray.GetPoint(distance);
+    //         transform.forward = hitPoint - transform.position;
+
+    //      }
+
+
+    //   var movementValue = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+    //
+    //   movementValue *= velocity;
+    //   movementValue *= Time.deltaTime;
+    //
+    //   characterController.Move(new Vector3(movementValue.x, yMovement * Time.deltaTime, movementValue.y));
+    //   if (characterController.velocity.sqrMagnitude > 0.1)
+    //       transform.forward = new Vector3(movementValue.x, 0f, movementValue.y);
+    //
+    //   if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
+    //       yMovement = 10f;
+    //
+    //   yMovement = Mathf.Max(-9.81f, yMovement - Time.deltaTime * fallJumpModif);
+
 
 }

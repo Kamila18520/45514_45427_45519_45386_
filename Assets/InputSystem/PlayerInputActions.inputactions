@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "6876ef63-7445-407a-adbb-bf4bd353a325",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "SwitchPlacingMode",
-                    "type": "Button",
-                    "id": "a9727a04-dfec-4671-8e42-dfb6c17dbfe5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -46,6 +37,61 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "80e88d23-1906-4446-90c6-c1362e7676ac",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDirection",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "3bde55eb-74ba-421f-a860-6709ca547bc4",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "18d9714e-c646-483f-b7ca-09dd3b1361fa",
+                    "path": "<Keyboard>/#(S)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "2aa5d56b-d597-4dcc-b82e-335730da88b9",
+                    "path": "<Keyboard>/#(A)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "1cad52b1-3cc6-4c6d-ae23-ca4a592356df",
+                    "path": "<Keyboard>/#(D)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "be278524-ccc6-4b18-b329-9dff1b7e9ad5",
                     "path": "<Gamepad>/rightStick",
@@ -55,22 +101,11 @@
                     "action": "LookDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "431aea7e-9055-4e83-af81-735fc95dd5c8",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "SwitchPlacingMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "PlayerShooting",
+            "name": "PlayerWeapon",
             "id": "79168ebc-3400-4bab-a6ee-0f07183a462f",
             "actions": [
                 {
@@ -86,6 +121,15 @@
                     "name": "NextWeapon",
                     "type": "Button",
                     "id": "97b84c20-9c20-49be-aaa8-0394ea2f8c2a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectBuildMode",
+                    "type": "Button",
+                    "id": "ce5120c7-fbbf-4684-97f7-037d391ae21d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -114,6 +158,17 @@
                     "action": "NextWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55d3aecc-c209-45ff-8b61-65ddd20d4a4c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SelectBuildMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -129,17 +184,57 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectWeaponMode",
+                    "type": "Button",
+                    "id": "e0dc4749-c617-4f0f-92d9-ccdae1e67392",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextTurret",
+                    "type": "Button",
+                    "id": "0335a6ae-e62b-4a5a-b9ea-169ac6eb33d8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "a4247ec7-8c93-4a39-867d-1f835a11207b",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Build",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a8cefa6-c402-4d36-93ea-39b27725be98",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SelectWeaponMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26ef561d-0356-4942-9e0f-68876d31bca9",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "NextTurret",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

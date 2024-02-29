@@ -9,15 +9,20 @@ public class PlayerWeaponHolder : MonoBehaviour
     [SerializeField] Queue<WeaponController> weapons = new();
     WeaponController currentWeapon;
 
-    PlayerInputActions.PlayerShootingActions playerShootingActions;
+    [Header("InputActions")]
+    [SerializeField] InputActionReference shootReference;
+    [SerializeField] InputActionReference selectNextWeaponReference;
+
+    InputAction shootAction;
+    InputAction selectNextWeaponAction;
 
     private void Awake()
     {
-        playerShootingActions = GetComponentInParent<PlayerInputController>().Input.PlayerShooting;
-
-        playerShootingActions.Shoot.performed += OnShoot;
-        playerShootingActions.NextWeapon.performed += OnNextWeapon;
-
+        var playerInput = GetComponentInParent<PlayerInput>();
+        shootAction = playerInput.actions[shootReference.action.name];
+        selectNextWeaponAction = playerInput.actions[selectNextWeaponReference.action.name];
+        shootAction.actionMap.Enable();
+        
         foreach (Transform child in transform)
         {
             if (child == transform) continue;
@@ -30,22 +35,6 @@ public class PlayerWeaponHolder : MonoBehaviour
         SelectNextWeapon();
     }
 
-    private void OnDestroy()
-    {
-        playerShootingActions.Shoot.performed -= OnShoot;
-        playerShootingActions.NextWeapon.performed -= OnNextWeapon;
-    }
-
-
-    private void OnNextWeapon(InputAction.CallbackContext ctx)
-    {
-        SelectNextWeapon();
-    }
-
-    private void OnShoot(InputAction.CallbackContext ctx)
-    {
-        currentWeapon.Shoot();
-    }
 
     private void SelectNextWeapon()
     {
@@ -60,13 +49,13 @@ public class PlayerWeaponHolder : MonoBehaviour
 
     }
 
-    //  private void Update()
-    //   {
-    //      if(Input.GetMouseButtonDown(1))
-    //          SelectNextWeapon();
+      private void Update()
+       {
+          if(selectNextWeaponAction.WasPerformedThisFrame())
+              SelectNextWeapon();
 
-    //       if (Input.GetMouseButton(0))
-    //           currentWeapon.Shoot();
+           if (shootAction.WasPerformedThisFrame())
+               currentWeapon.Shoot();
 
-    //}
+    }
 }
