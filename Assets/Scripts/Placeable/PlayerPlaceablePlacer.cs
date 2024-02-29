@@ -52,7 +52,7 @@ public class PlayerPlaceablePlacer : MonoBehaviour
 
     Color transparentIncorrectColor;
     Color transparentCorrectColor;
-    Color transparentLowEnergytColor;
+    //  Color transparentLowEnergytColor;
 
 
 
@@ -68,18 +68,20 @@ public class PlayerPlaceablePlacer : MonoBehaviour
         selectBuildModeAction.performed += SelectPlacingMode;
         selectWeaponModeAction.performed += SelectWeaponMode;
 
+        transparentIncorrectColor = new Color(incorrectColor.r, incorrectColor.g, incorrectColor.b, 0.5f);
+        transparentCorrectColor = new Color(correctColor.r, correctColor.g, correctColor.b, 0.5f);
+
 
         placeableGhostMeshFilter = placeableGhostTransform.GetComponent<MeshFilter>();
         placeableGhostMeshRenderer = placeableGhostTransform.GetComponent<MeshRenderer>();
 
-        SetPlaceableItem(prefabToPlace);
-
         placeableGhostMaterial = placeableGhostMeshRenderer.material;
         placeableGhostMeshRenderer.enabled = currentState == State.Placing ? true : false;
 
-        // set force color to incorrect
-        isMaterialCorrectColor = true;
-        SetGhostPositionAndColor(false);
+
+        SetPlaceableItem(prefabToPlace);
+
+
 
 
     }
@@ -87,10 +89,9 @@ public class PlayerPlaceablePlacer : MonoBehaviour
 
     void Update()
     {
-        if (currentState == State.Placing)        
-        PlacingUpdate();
-        
-           
+        if (currentState == State.Placing)
+            PlacingUpdate();
+
     }
 
 
@@ -100,6 +101,16 @@ public class PlayerPlaceablePlacer : MonoBehaviour
         placeableGhostMeshRenderer.enabled = true;
         selectWeaponModeAction.actionMap.Enable();
         selectBuildModeAction.actionMap.Disable();
+        WeaponsController.SetActive(false);
+
+        placeableGhostMeshFilter = placeableGhostTransform.GetComponent<MeshFilter>();
+        placeableGhostMeshRenderer = placeableGhostTransform.GetComponent<MeshRenderer>();
+
+
+        // set force color to incorrect
+        isMaterialCorrectColor = true;
+        SetGhostPositionAndColor(false);
+
 
         currentState = State.Placing;
     }
@@ -109,7 +120,7 @@ public class PlayerPlaceablePlacer : MonoBehaviour
         placeableGhostMeshRenderer.enabled = false;
         selectWeaponModeAction.actionMap.Disable();
         selectBuildModeAction.actionMap.Enable();
-
+        WeaponsController.SetActive(true);
         currentState = State.Idle;
 
     }
@@ -119,7 +130,7 @@ public class PlayerPlaceablePlacer : MonoBehaviour
     private void SetPlaceableItem(PlaceableController placeable)
     {
         placeableGhostMeshFilter.sharedMesh = prefabToPlace.PlaceableMesh;
-        // prefabsToPlace = placeable; 
+        //prefabsToPlace = placeable; 
 
     }
 
