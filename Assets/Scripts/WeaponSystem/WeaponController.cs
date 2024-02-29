@@ -8,6 +8,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform bulletSpawnerTransform;
     [SerializeField] float weaponCooldown;
+    [SerializeField] AudioSource weaponShoot;
 
     private float lastShootTime;
 
@@ -16,6 +17,7 @@ public class WeaponController : MonoBehaviour
             if(IsCooldown()) return false;
 
             Instantiate(bulletPrefab, bulletSpawnerTransform.position, bulletSpawnerTransform.rotation);
+             weaponShoot.Play();
             lastShootTime = Time.time;
             return true;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiMenuButtonPanel : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class UiMenuButtonPanel : MonoBehaviour
     [SerializeField] Vector2[] buttonVector2;
 
     float duration = 5f;
-
+    public bool isOpen= false;
 
 
     private void Awake()
@@ -21,12 +22,11 @@ public class UiMenuButtonPanel : MonoBehaviour
         for (int i = 0; i < buttonRectTransform.Length; i++)
         {
             buttonVector2[i] = buttonRectTransform[i].sizeDelta;
+            panelVector2[i] = panelRectTransform[i].sizeDelta;
+            panelRectTransform[i].transform.position = buttonRectTransform[i].transform.position;
         }
 
-        for (int i = 0; i < panelRectTransform.Length; i++)
-        {
-            panelVector2[i] = panelRectTransform[i].sizeDelta;
-        }
+
     }
 
     enum State { On, Off }
@@ -49,23 +49,39 @@ public class UiMenuButtonPanel : MonoBehaviour
         int number = i;
         if (currentState == State.On)
         {
+            if(isOpen) 
+            { 
+            DebugEnabledPanels();
+            }
 
+            isOpen = false;
             currentState = State.Off;
-            AnimatePanel(panelVector2[i], buttonVector2[i], number);
+          
+            panelRectTransform[i].gameObject.SetActive(false);
 
         }
         else if (currentState == State.Off)
         {
+
+            isOpen= true;
             currentState = State.On;
-            AnimatePanel(buttonVector2[i], panelVector2[i], number);
+            
+            panelRectTransform[i].gameObject.SetActive(true);
+
         }
 
     }
 
-    private void AnimatePanel(Vector2 startVector2, Vector2 targetVector2, int number)
+    private void DebugEnabledPanels()
     {
-        buttonRectTransform[number].sizeDelta = targetVector2;
+      
+        for (int z = 0; z < panelRectTransform.Length; z++)
+        {
+            panelRectTransform[z].gameObject.SetActive(false);
+        }
     }
+
+
 
 
 }
