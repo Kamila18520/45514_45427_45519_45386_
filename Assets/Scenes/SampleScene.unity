@@ -3812,6 +3812,10 @@ PrefabInstance:
       propertyPath: variableMax
       value: 
       objectReference: {fileID: 11400000, guid: 6cd744f54ffd40341be3b648cddf13a4, type: 2}
+    - target: {fileID: 3228550605109042856, guid: 970b74360c22e794b9ee835334683b90, type: 3}
+      propertyPath: m_text
+      value: click L1 to change weapon
+      objectReference: {fileID: 0}
     - target: {fileID: 4936346012414895082, guid: 970b74360c22e794b9ee835334683b90, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3919,6 +3923,18 @@ PrefabInstance:
     - target: {fileID: 7603660826567457784, guid: 970b74360c22e794b9ee835334683b90, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8611439454432974679, guid: 970b74360c22e794b9ee835334683b90, type: 3}
+      propertyPath: m_text
+      value: 'click B to enter/exit build mode
+
+        clisk Y to place turret
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8611439454432974679, guid: 970b74360c22e794b9ee835334683b90, type: 3}
+      propertyPath: m_margin.y
+      value: -12.0792465
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
